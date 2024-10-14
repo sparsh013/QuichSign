@@ -100,6 +100,14 @@
         const retrieveButton = document.getElementById("retrieveButton");
         const ctx = canvas.getContext('2d');
 
+        function setCanvasBackground(color) {
+            ctx.save(); 
+            ctx.globalCompositeOperation = 'destination-over';
+            ctx.fillStyle = color;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.restore(); 
+        }
+
         colorPicker.addEventListener('change',(e)=>{
             ctx.strokeStyle = e.target.value;
             ctx.fillStyle = e.target.value;
@@ -127,10 +135,16 @@
             isDrawing=false;
         })
 
-        canvasColor.addEventListener('change',(e)=>{
-            ctx.fillstyle = e.target.value;
-            ctx.fillRect(0,0,800,200);
-        })
+        // canvasColor.addEventListener('change',(e)=>{
+        //     ctx.save();
+        //     ctx.fillStyle = e.target.value;
+        //     ctx.fillRect(0,0,800,200);
+        //     ctx.restore();
+        // })
+
+        canvasColor.addEventListener('input', (e) => {
+            setCanvasBackground(e.target.value);
+        });
 
         fontPicker.addEventListener('change',(e)=>{
             ctx.lineWidth = e.target.value
